@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessible Interactive Photo Gallery</title>
+    <style>
+        /* Simple styling for the gallery */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        figure {
+            margin: 10px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .focus {
+            outline: 2px solid #f00;
+        }
+    </style>
+</head>
+
+<body onload="initializeGallery()">
+
+    <h1>My Accessible Interactive Photo Gallery</h1>
+
+    <div class="gallery">
+        <figure tabindex="0">
+            <img src="1.jpg" alt="Description of image 1" id="img1">
+        </figure>
+        <figure tabindex="0">
+            <img src="1984.jpg" alt="Description of image 2" id="img2">
+        </figure>
+        <figure tabindex="0">
+            <img src="atlas.jpg" alt="Description of image 3" id="img3">
+        </figure>
+        <figure tabindex="0">
+            <img src="babel.jpg" alt="Description of image 4" id="img4">
+        </figure>
+        <figure tabindex="0">
+            <img src="dorian.jpg" alt="Description of image 5" id="img5">
+        </figure>
+        <figure tabindex="0">
+            <img src="fourth.jpg" alt="Description of image 6" id="img6">
+        </figure>
+    </div>
+
+    <script>
+        // Function to initialize the gallery
+        function initializeGallery() {
+            const images = document.querySelectorAll('figure');
+
+            // Add event listeners for onmouseover, onmouseleave, onfocus, onblur
+            images.forEach(image => {
+                image.addEventListener('mouseover', handleMouseOver);
+                image.addEventListener('mouseleave', handleMouseLeave);
+                image.addEventListener('focus', handleFocus);
+                image.addEventListener('blur', handleBlur);
+            });
+
+            // Automatically add tabindex attribute using a loop
+            addTabIndex();
+
+            // Print a message when the page is loaded
+            console.log("Gallery Loaded");
+        }
+
+        // Function to handle mouseover event
+        function handleMouseOver(event) {
+            event.target.style.border = '2px solid blue';
+        }
+
+        // Function to handle mouseleave event
+        function handleMouseLeave(event) {
+            event.target.style.border = '1px solid #ccc';
+        }
+
+        // Function to handle focus event
+        function handleFocus(event) {
+            event.target.classList.add('focus');
+        }
+
+        // Function to handle blur event
+        function handleBlur(event) {
+            event.target.classList.remove('focus');
+        }
+
+        // Function to add tabindex attribute to each figure
+        function addTabIndex() {
+            const figures = document.querySelectorAll('figure');
+            figures.forEach((figure, index) => {
+                figure.setAttribute('tabindex', index + 1);
+            });
+        }
+    </script>
+
+</body>
+
+</html>
